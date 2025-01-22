@@ -2,79 +2,183 @@
 
 ## Command Line Interface
 
-### Basic Commands
+### Command Parameters
 
-Process any supported document:
+#### `file-extract` Command
 ```bash
-pyvisionai process <file_path>
+file-extract [-h] -t TYPE -s SOURCE -o OUTPUT [-e EXTRACTOR] [-m MODEL] [-k API_KEY] [-v]
+
+Required Arguments:
+  -t, --type TYPE         File type to process (pdf, docx, pptx, html)
+  -s, --source SOURCE     Source file or directory path
+  -o, --output OUTPUT     Output directory path
+
+Optional Arguments:
+  -h, --help             Show help message and exit
+  -e, --extractor TYPE   Extraction method:
+                         - page_as_image: Convert pages to images (default)
+                         - text_and_images: Extract text and images separately
+                         Note: HTML only supports page_as_image
+  -m, --model MODEL      Vision model for image description:
+                         - gpt4: GPT-4 Vision (default, recommended)
+                         - llama: Local Llama model
+  -k, --api-key KEY      OpenAI API key (can also be set via OPENAI_API_KEY env var)
+  -v, --verbose          Enable verbose logging
+  -p, --prompt TEXT      Custom prompt for image description
 ```
 
-### Advanced Options
-
+#### `describe-image` Command
 ```bash
-# Process with specific VLM model
-pyvisionai process --model gpt4-vision <file_path>
+describe-image [-h] -i IMAGE [-m MODEL] [-k API_KEY] [-t MAX_TOKENS] [-v] [-p PROMPT]
 
-# Save output to specific format
-pyvisionai process --output markdown <file_path>
+Required Arguments:
+  -i, --image IMAGE      Path to image file
 
-# Process multiple files
-pyvisionai process file1.pdf file2.docx file3.pptx
+Optional Arguments:
+  -h, --help            Show help message and exit
+  -m, --model MODEL     Vision model to use:
+                        - gpt4: GPT-4 Vision (default, recommended)
+                        - llama: Local Llama model
+  -k, --api-key KEY     OpenAI API key (can also be set via OPENAI_API_KEY env var)
+  -t, --max-tokens NUM  Maximum tokens for response (default: 300)
+  -p, --prompt TEXT     Custom prompt for image description
+  -v, --verbose         Enable verbose logging
+```
 
-# Process with custom configuration
-pyvisionai process --config config.yaml <file_path>
+### Examples
+
+#### File Extraction Examples
+```bash
+# Basic usage with defaults (page_as_image method, GPT-4 Vision)
+file-extract -t pdf -s document.pdf -o output_dir
+file-extract -t html -s webpage.html -o output_dir  # HTML always uses page_as_image
+
+# Specify extraction method (not applicable for HTML)
+file-extract -t docx -s document.docx -o output_dir -e text_and_images
+
+# Use local Llama model for image description
+file-extract -t pptx -s slides.pptx -o output_dir -m llama
+
+# Process all PDFs in a directory with verbose logging
+file-extract -t pdf -s input_dir -o output_dir -v
+
+# Use custom OpenAI API key
+file-extract -t pdf -s document.pdf -o output_dir -k "your-api-key"
+
+# Use custom prompt for image descriptions
+file-extract -t pdf -s document.pdf -o output_dir -p "Focus on text content and layout"
+```
+
+#### Image Description Examples
+```bash
+# Basic usage with defaults (GPT-4 Vision)
+describe-image -i photo.jpg
+
+# Use local Llama model
+describe-image -i photo.jpg -m llama
+
+# Use custom prompt
+describe-image -i photo.jpg -p "List the main colors and their proportions"
+
+# Customize token limit
+describe-image -i photo.jpg -t 500
+
+# Enable verbose logging
+describe-image -i photo.jpg -v
+
+# Use custom OpenAI API key
+describe-image -i photo.jpg -k "your-api-key"
+
+# Combine options
+describe-image -i photo.jpg -m llama -p "Describe the lighting and shadows" -v
 ```
 
 ## Python Library Usage
 
-### Basic Document Processing
-
 ```python
-from pyvisionai import process_document
+from pyvisionai import create_extractor, describe_image_openai, describe_image_ollama
 
-# Process a single document
-result = process_document("document.pdf")
-print(result.content)
+# 1. Extract content from files
+extractor = create_extractor("pdf")  # or "docx", "pptx", or "html"
+output_path = extractor.extract("input.pdf", "output_dir")
 
-# Process with specific model
-result = process_document("document.pdf", model="gpt4-vision")
+# With specific extraction method
+extractor = create_extractor("pdf", extractor_type="text_and_images")
+output_path = extractor.extract("input.pdf", "output_dir")
 
-# Access different parts of the result
-print(result.text)  # Extracted text
-print(result.descriptions)  # Generated descriptions
-print(result.metadata)  # Document metadata
-```
+# Extract from HTML (always uses page_as_image method)
+extractor = create_extractor("html")
+output_path = extractor.extract("page.html", "output_dir")
 
-### Batch Processing
-
-```python
-from pyvisionai import batch_process
-
-# Process multiple documents
-files = ["doc1.pdf", "doc2.docx", "doc3.pptx"]
-results = batch_process(files)
-
-for result in results:
-    print(f"File: {result.filename}")
-    print(f"Content: {result.content}")
-```
-
-### Custom Configuration
-
-```python
-from pyvisionai import Config, process_document
-
-# Create custom configuration
-config = Config(
-    model="gpt4-vision",
-    output_format="markdown",
-    include_metadata=True,
-    max_tokens=1000
+# 2. Describe images
+# Using GPT-4 Vision (default, recommended)
+description = describe_image_openai(
+    "image.jpg",
+    model="gpt-4o-mini",  # default
+    api_key="your-api-key",  # optional if set in environment
+    max_tokens=300,  # default
+    prompt="Describe this image focusing on colors and textures"  # optional custom prompt
 )
 
-# Process with custom config
-result = process_document("document.pdf", config=config)
+# Using local Llama model
+description = describe_image_ollama(
+    "image.jpg",
+    model="llama3.2-vision",  # default
+    prompt="List the main objects in this image"  # optional custom prompt
+)
 ```
+
+## Custom Prompts
+
+PyVisionAI supports custom prompts for both file extraction and image description:
+
+### Using Custom Prompts
+
+1. **CLI Usage**
+   ```bash
+   # File extraction with custom prompt
+   file-extract -t pdf -s document.pdf -o output_dir -p "Extract all text verbatim and describe any diagrams or images in detail"
+
+   # Image description with custom prompt
+   describe-image -i image.jpg -p "List the main colors and describe the layout of elements"
+   ```
+
+2. **Library Usage**
+   ```python
+   # File extraction with custom prompt
+   extractor = create_extractor(
+       "pdf",
+       extractor_type="page_as_image",
+       prompt="Extract all text exactly as it appears and provide detailed descriptions of any charts or diagrams"
+   )
+   output_path = extractor.extract("input.pdf", "output_dir")
+
+   # Image description with custom prompt
+   description = describe_image_openai(
+       "image.jpg",
+       prompt="Focus on spatial relationships between objects and any text content"
+   )
+   ```
+
+3. **Environment Variable**
+   ```bash
+   # Set default prompt via environment variable
+   export FILE_EXTRACTOR_PROMPT="Extract text and describe visual elements with emphasis on layout"
+   ```
+
+### Writing Effective Prompts
+
+1. **For Page-as-Image Method**
+   - Include instructions for both text extraction and visual description
+   - Example: "Extract the exact text as it appears on the page and describe any images, diagrams, or visual elements in detail"
+
+2. **For Text-and-Images Method**
+   - Focus only on image description since text is extracted separately
+   - Example: "Describe the visual content, focusing on what the image represents and any visual elements it contains"
+
+3. **For Image Description**
+   - Be specific about what aspects to focus on
+   - Example: "Describe the main elements, their arrangement, and any text visible in the image"
 
 ## Supported File Types
 
@@ -108,56 +212,85 @@ result = process_document("document.pdf", config=config)
 
 2. **Error Handling**
    ```python
-   from pyvisionai import process_document, PyVisionAIError
-   
    try:
-       result = process_document("document.pdf")
-   except PyVisionAIError as e:
-       print(f"Error processing document: {e}")
+       # Process your document
+       extractor = create_extractor("pdf")
+       result = extractor.extract("document.pdf", "output_dir")
+   except FileNotFoundError:
+       print("File not found")
+   except PermissionError:
+       print("Permission denied")
+   except Exception as e:
+       print(f"An error occurred: {e}")
    ```
 
 3. **Resource Management**
    ```python
-   from pyvisionai import PyVisionAI
+   # Initialize resources properly
+   extractor = create_extractor("pdf")
    
-   with PyVisionAI() as processor:
-       result = processor.process("document.pdf")
+   # Use appropriate configuration
+   extractor = create_extractor(
+       "pdf",
+       extractor_type="text_and_images",
+       prompt="Extract text and describe visual elements"
+   )
    ```
 
 ## Examples
 
-### Extract Text with Layout Preservation
+### Basic Extraction
 ```python
-from pyvisionai import process_document
+from pyvisionai import create_extractor
 
-result = process_document(
-    "document.pdf",
-    preserve_layout=True,
-    include_formatting=True
+# PDF extraction with default settings (page_as_image + GPT-4 Vision)
+extractor = create_extractor("pdf")
+output_path = extractor.extract("input.pdf", "output/pdf")
+
+# DOCX extraction using text_and_images method
+extractor = create_extractor("docx", extractor_type="text_and_images")
+output_path = extractor.extract("input.docx", "output/docx")
+
+# PPTX extraction with custom prompt
+extractor = create_extractor(
+    "pptx",
+    prompt="List all text content and describe any diagrams or charts"
 )
+output_path = extractor.extract("input.pptx", "output/pptx")
+
+# HTML extraction (always uses page_as_image)
+extractor = create_extractor("html")
+output_path = extractor.extract("https://example.com", "output/html")
 ```
 
-### Generate Image Descriptions
+### Specialized Extraction
 ```python
-from pyvisionai import process_images
+from pyvisionai import create_extractor, describe_image_openai
 
-result = process_images(
-    "document.pdf",
-    description_style="detailed",
-    max_images=10
+# Technical documentation extraction
+extractor = create_extractor(
+    "pdf",
+    prompt=(
+        "Extract all code snippets, technical terms, and command examples. "
+        "For diagrams, describe the technical architecture and components shown."
+    )
 )
-```
+output_path = extractor.extract("technical_doc.pdf", "output/technical")
 
-### Export to Different Formats
-```python
-from pyvisionai import process_document
+# Business report extraction
+extractor = create_extractor(
+    "pptx",
+    prompt=(
+        "Extract key business metrics, financial figures, and trends. "
+        "For charts, provide detailed analysis of the data presented."
+    )
+)
+output_path = extractor.extract("business_report.pptx", "output/business")
 
-# Export to Markdown
-result = process_document("document.pdf", output="markdown")
-
-# Export to JSON
-result = process_document("document.pdf", output="json")
-
-# Export to HTML
-result = process_document("document.pdf", output="html")
+# Image description with custom prompt
+description = describe_image_openai(
+    "image.jpg",
+    prompt="Analyze the chart type, axes labels, and data trends. "
+           "Provide key insights and numerical values where visible."
+)
 ```

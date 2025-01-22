@@ -1,15 +1,23 @@
-# PyVisionAI
+# PyVisionAI: Content Extractor and Image Description with Vision LLM
 
 ## Transforming Content Processing with Vision Language Models
 
-PyVisionAI is your ultimate tool for extracting and describing content from various document formats using Vision Language Models (VLMs). Designed for flexibility and ease of use, PyVisionAI empowers you to:
+## Features
 
-- 📄 Extract content from PDFs, DOCX, PPTX, and HTML files
-- 🖼️ Generate image descriptions using local or cloud-based VLMs
-- 📝 Save outputs in markdown format for seamless integration into workflows
-- 🛠️ Use it as a command-line interface (CLI) tool or as a library in your Python projects
+- 📄 Extract text and images from PDF, DOCX, PPTX, and HTML files
+- 🖼️ Capture interactive HTML pages as images with full rendering
+- 📝 Describe images using local (Ollama) or cloud-based (OpenAI) Vision Language Models
+- 💾 Save extracted text and image descriptions in markdown format
+- 🛠️ Support for both CLI and library usage
+- 📊 Multiple extraction methods for different use cases
+- 📋 Detailed logging with timestamps for all operations
+- ⚙️ Customizable image description prompts
 
-## Project Highlights
+## System Requirements
+
+- Python 3.8 or higher
+- Operating system: Windows, macOS, or Linux
+- Disk space: At least 1GB free space (more if using local Llama model)
 
 ### Latest Release: v0.2.5 (January 20, 2025)
 PyVisionAI is continuously updated to ensure security and reliability. All versions to date have been certified secure, with no known vulnerabilities reported across any release.
@@ -33,7 +41,7 @@ PyVisionAI is gaining traction at an incredible pace:
 pip install pyvisionai
 
 # Process your first file
-pyvisionai process example.pdf
+file-extract -t pdf -s path/to/file.pdf -o output_dir
 ```
 
 [Get Started →](documentation/getting-started.md){ .md-button .md-button--primary }
