@@ -3,22 +3,10 @@ site_url: https://pyvisionai.dev
 site_description: Advanced document content processing using Vision Language Models
 site_author: PyVisionAI Team
 
-# Social/SEO metadata
+# Repository
 repo_url: https://github.com/MDGrey33/pyvisionai
 repo_name: MDGrey33/pyvisionai
 edit_uri: edit/main/docs/
-
-# OpenGraph metadata
-og_title: PyVisionAI Documentation
-og_description: Advanced document content processing using Vision Language Models (VLMs)
-og_image: assets/images/visual.jpeg
-og_url: https://pyvisionai.dev
-
-# Twitter metadata
-twitter_site: pyvisionai
-twitter_creator: pyvisionai
-twitter_card: summary_large_image
-twitter_image: assets/images/visual.jpeg
 
 theme:
   name: material
@@ -67,6 +55,7 @@ nav:
     - Getting Started: documentation/getting-started.md
     - Installation: documentation/installation.md
     - Usage: documentation/usage.md
+    - Changelog: changelog.md
   - Community: community.md
   - Resources: resources.md
   - Contact: contact.md
@@ -104,10 +93,6 @@ extra:
       as to measure the effectiveness of our documentation and whether users
       find what they're searching for. With your consent, you're helping us to
       make our documentation better.
-  version:
-    provider: mike
-    default: latest
-  social_cards: true
 
 extra_css:
   - stylesheets/extra.css
