@@ -1,40 +1,42 @@
 # Contact Us
 
-## Support Channels
+## Community & Support
 
-### Community Support
+### Developer Community
+Join our growing community of developers:
 
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/pyvisionai)
+- [GitHub Repository](https://github.com/MDGrey33/pyvisionai) - Main project hub
+  - [Issues & Bug Reports](https://github.com/MDGrey33/pyvisionai/issues)
+  - [Feature Requests](https://github.com/MDGrey33/pyvisionai/issues)
+  - [Discussions](https://github.com/MDGrey33/pyvisionai/discussions)
+- [Discord Community](https://discord.gg/DGqprtyk) - Real-time chat & support
 
-
-### Bug Reports
-- Submit issues on our [GitHub Issue Tracker](https://github.com/MDGrey33/pyvisionai/issues)
-- Follow our issue template for faster resolution
-- Search existing issues before creating new ones
-
-### Feature Requests
-- Use our [Feature Request](https://github.com/MDGrey33/pyvisionai/issues) section
-- Provide detailed use cases
-- Engage with the community for feedback
+### Documentation
+Our documentation is being actively developed. In the meantime:
+- Check our [GitHub README](https://github.com/MDGrey33/pyvisionai#readme) for getting started
+- Browse [example notebooks](https://github.com/MDGrey33/pyvisionai/tree/main/examples) (Coming Soon)
+- Join discussions for usage questions
 
 ## Professional Support
 
 ### Enterprise Solutions
 For enterprise-level support and custom solutions:
-- Email: enterprise@pyvisionai.dev
-- Schedule a [Consultation](https://www.linkedin.com/in/rolanday/)
 
+- [Schedule a Demo](https://calendar.app.google/FxCP2W8XMQnNyich8) - See PyVisionAI in action and discuss your needs
+- [Join Discord](https://discord.gg/DGqprtyk) - Get quick responses in our #enterprise channel
 
-## Social Media
+### Priority Support Features
+- Dedicated technical support
+- Custom feature development
+- Implementation assistance
+- Technical consultation
 
-Stay connected with PyVisionAI:
-- [LinkedIn](https://www.linkedin.com/in/rolanday/)
+## Connect With Us
 
-
-## Meet the Founder
-
+### Meet the Founder
 Connect with Roland Ayoub:
-- [LinkedIn Profile](https://calendar.app.google/FxCP2W8XMQnNyich8){ target="_blank" }
+- [LinkedIn](https://www.linkedin.com/in/rolanday/) - Professional background & updates
+- [GitHub](https://github.com/MDGrey33) - Technical contributions
 
 Schedule a one-on-one meeting to discuss:
 - Custom implementations
@@ -44,4 +46,12 @@ Schedule a one-on-one meeting to discuss:
 - Strategic collaborations
 
 [Book a Meeting →](https://calendar.app.google/FxCP2W8XMQnNyich8){ .md-button .md-button--primary }
+
+---
+
+> 💡 **Coming Soon**
+> - Tutorial videos
+> - Developer newsletter
+> 
+> Follow us on [LinkedIn](https://www.linkedin.com/in/rolanday/) for updates!
 
