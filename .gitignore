@@ -53,3 +53,4 @@ acm-validation.json
 *.log
 .env
 .env.local
+docs/pyvisionai-website.code-workspace
