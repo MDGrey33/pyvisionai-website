@@ -2,6 +2,30 @@
 
 All notable changes to PyVisionAI will be documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.2.7] - 2024-03-22
+
+### Added
+- Added retry mechanism for handling transient failures:
+  - Implemented RetryManager with configurable strategies
+  - Added support for exponential, linear, and constant backoff
+  - Added comprehensive logging for retry attempts
+  - Added proper error handling and delay management
+
+### Changed
+- Improved error handling in model selection:
+  - Enhanced connection error handling for API calls
+  - Added graceful fallback when default model is unavailable
+  - Improved error messages with detailed failure context
+- Enhanced test coverage:
+  - Added tests for retry mechanism with various strategies
+  - Added tests for model fallback scenarios
+  - Added mocked API tests for connection failures
+
+### Fixed
+- Fixed model selection to properly handle connection failures
+- Fixed retry delays to prevent excessive wait times
+- Fixed logging to capture all retry and fallback attempts
+
 ## [0.2.6] - 2024-01-25
 
 ### Added
