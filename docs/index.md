@@ -4,14 +4,14 @@
 
 ## Features
 
-- 📄 Extract text and images from PDF, DOCX, PPTX, and HTML files
-- 🖼️ Capture interactive HTML pages as images with full rendering
-- 📝 Describe images using local (Ollama) or cloud-based (OpenAI) Vision Language Models
-- 💾 Save extracted text and image descriptions in markdown format
-- 🛠️ Support for both CLI and library usage
-- 📊 Multiple extraction methods for different use cases
-- 📋 Detailed logging with timestamps for all operations
-- ⚙️ Customizable image description prompts
+- 📄 Extract text and images from PDF, DOCX, PPTX, and HTML files.
+- 🖼️ Capture interactive HTML pages as images with full rendering.
+- 📝 Describe images using local (Ollama) or cloud-based (OpenAI) Vision Language Models.
+- 💾 Save extracted text and image descriptions in markdown format.
+- 🛠️ Support for both CLI and library usage.
+- 📊 Multiple extraction methods for different use cases.
+- 📋 Detailed logging with timestamps for all operations.
+- ⚙️ Customizable image description prompts.
 
 ## System Requirements
 

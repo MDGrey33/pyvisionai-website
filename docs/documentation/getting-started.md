@@ -4,9 +4,11 @@
 
 PyVisionAI is a powerful tool that leverages Vision Language Models (VLMs) to process and analyze document content. Whether you're working with PDFs, Word documents, PowerPoint presentations, or HTML files, PyVisionAI provides a seamless experience for content extraction and description.
 
+This guide will help you get up and running with PyVisionAI quickly. We'll cover installation, basic setup, and common use cases.
+
 ## Prerequisites
 
-Before you begin, ensure you have:
+Before using PyVisionAI, ensure you have:
 
 - Python 3.8 or higher
 - Operating system: Windows, macOS, or Linux
@@ -44,11 +46,14 @@ Before you begin, ensure you have:
 
 2. Set up environment variables:
    ```bash
-   # Required for OpenAI Vision (if using cloud description)
+   # For OpenAI Vision (recommended)
    export OPENAI_API_KEY='your-api-key'
 
-   # Optional: Ollama host (if using local description)
-   export OLLAMA_HOST='http://localhost:11434'
+   # For local Llama (optional)
+   # First install and start Ollama
+   brew install ollama    # macOS
+   ollama serve
+   ollama pull llama3.2-vision
    ```
 
 ## Directory Structure
@@ -75,7 +80,153 @@ You can either:
    file-extract -t pdf -s ~/documents/file.pdf -o ~/results
    ```
 
-## Basic Usage
+## Quick Start
+
+### 1. Extract Text and Images from a PDF
+
+```python
+from pyvisionai import create_extractor
+
+# Create a PDF extractor
+extractor = create_extractor("pdf")
+
+# Extract content (will use GPT-4 Vision by default)
+output_path = extractor.extract(
+    "path/to/document.pdf",
+    "output_directory"
+)
+
+print(f"Extracted content saved to: {output_path}")
+```
+
+### 2. Process a Word Document
+
+```python
+# Create a DOCX extractor with text_and_images method
+extractor = create_extractor(
+    "docx",
+    extractor_type="text_and_images"
+)
+
+# Extract content
+output_path = extractor.extract(
+    "path/to/document.docx",
+    "output_directory"
+)
+```
+
+### 3. Capture and Process a Web Page
+
+```python
+# Create an HTML extractor
+extractor = create_extractor("html")
+
+# Extract content from a URL
+output_path = extractor.extract(
+    "https://example.com",
+    "output_directory"
+)
+```
+
+### 4. Describe Individual Images
+
+```python
+from pyvisionai import describe_image_openai
+
+# Using OpenAI's Vision model
+description = describe_image_openai(
+    "path/to/image.jpg",
+    prompt="Describe the main elements in this image"
+)
+
+print(description)
+```
+
+## Common Use Cases
+
+### 1. Batch Processing Documents
+
+```python
+import os
+from pyvisionai import create_extractor
+
+def process_directory(input_dir: str, output_dir: str):
+    # Create extractors for different file types
+    extractors = {
+        ".pdf": create_extractor("pdf"),
+        ".docx": create_extractor("docx"),
+        ".pptx": create_extractor("pptx")
+    }
+
+    for filename in os.listdir(input_dir):
+        ext = os.path.splitext(filename)[1].lower()
+        if ext in extractors:
+            input_path = os.path.join(input_dir, filename)
+            try:
+                output_path = extractors[ext].extract(
+                    input_path,
+                    output_dir
+                )
+                print(f"Processed: {filename}")
+            except Exception as e:
+                print(f"Error processing {filename}: {e}")
+
+# Use the function
+process_directory("documents", "extracted_content")
+```
+
+### 2. Custom Image Description
+
+```python
+from pyvisionai import create_extractor
+
+# Create extractor with custom prompt
+extractor = create_extractor(
+    "pdf",
+    prompt="List all text elements and describe any charts or diagrams"
+)
+
+# Process document
+output_path = extractor.extract("report.pdf", "output")
+```
+
+### 3. Using Local Model for Privacy
+
+```python
+# Create extractor using local Llama model
+extractor = create_extractor(
+    "pdf",
+    model="llama",
+    prompt="Extract text and describe visual elements"
+)
+
+output_path = extractor.extract("confidential.pdf", "output")
+```
+
+## Output Format
+
+PyVisionAI generates a markdown file containing:
+1. Extracted text
+2. Embedded images (if using text_and_images method)
+3. Image descriptions
+4. Source file metadata
+
+Example output structure:
+```markdown
+# Document Title
+
+## Page 1
+[Extracted text content...]
+
+### Images
+<!-- Example image path -->
+[Image 1] Path: output_dir/images/page1_image1.png
+Description: A bar chart showing sales data for Q1 2024...
+
+## Page 2
+[Extracted text content...]
+...
+```
 
 ### Command Line Interface (CLI)
 
@@ -87,17 +238,3 @@ file-extract -t pdf -s path/to/file.pdf -o output_dir
 file-extract -t docx -s path/to/file.docx -o output_dir
 file-extract -t pptx -s path/to/file.pptx -o output_dir
 file-extract -t html -s path/to/file.html -o output_dir
-
-# Process with specific extractor
-file-extract -t pdf -s input.pdf -o output_dir -e text_and_images
-
-# Process all files in a directory
-file-extract -t pdf -s input_dir -o output_dir
-```
-
-## Next Steps
-
-- Learn more about [installation options](installation.md)
-- Explore detailed [usage examples](usage.md)
-- Join our [community](../community.md)
-- Check out our [resources](../resources.md)

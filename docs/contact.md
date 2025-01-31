@@ -34,7 +34,7 @@ For enterprise-level support and custom solutions:
 ## Connect With Us
 
 ### Meet the Founder
-Connect with Roland Ayoub:
+Connect with Roland Abou Younes:
 - [LinkedIn](https://www.linkedin.com/in/rolanday/) - Professional background & updates
 - [GitHub](https://github.com/MDGrey33) - Technical contributions
 
