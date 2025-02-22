@@ -49,6 +49,9 @@ Before using PyVisionAI, ensure you have:
    # For OpenAI Vision (recommended)
    export OPENAI_API_KEY='your-api-key'
 
+   # For Claude Vision
+   export ANTHROPIC_API_KEY='your-anthropic-key'
+
    # For local Llama (optional)
    # First install and start Ollama
    brew install ollama    # macOS
@@ -131,7 +134,7 @@ output_path = extractor.extract(
 ### 4. Describe Individual Images
 
 ```python
-from pyvisionai import describe_image_openai
+from pyvisionai import describe_image_openai, describe_image_claude
 
 # Using OpenAI's Vision model
 description = describe_image_openai(
@@ -139,7 +142,22 @@ description = describe_image_openai(
     prompt="Describe the main elements in this image"
 )
 
+# Using Claude Vision
+description = describe_image_claude(
+    "path/to/image.jpg",
+    prompt="Describe the main elements in this image"
+)
+
 print(description)
+```
+
+# CLI Usage Examples:
+```bash
+# Describe image using OpenAI Vision (default)
+describe-image -s path/to/image.jpg
+
+# Describe image using Claude Vision
+describe-image -s path/to/image.jpg -m claude
 ```
 
 ## Common Use Cases

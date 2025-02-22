@@ -6,12 +6,15 @@
 
 - 📄 Extract text and images from PDF, DOCX, PPTX, and HTML files.
 - 🖼️ Capture interactive HTML pages as images with full rendering.
-- 📝 Describe images using local (Ollama) or cloud-based (OpenAI) Vision Language Models.
+- 📝 Describe images using:
+  - Cloud-based models (OpenAI GPT-4 Vision, Anthropic Claude Vision)
+  - Local models (Ollama's Llama Vision)
 - 💾 Save extracted text and image descriptions in markdown format.
 - 🛠️ Support for both CLI and library usage.
 - 📊 Multiple extraction methods for different use cases.
 - 📋 Detailed logging with timestamps for all operations.
 - ⚙️ Customizable image description prompts.
+- 🔄 Robust retry mechanism with configurable strategies.
 
 ## System Requirements
 
@@ -27,7 +30,7 @@
 
 See [Installation Guide](documentation/installation.md) for detailed setup instructions.
 
-### Latest Release: v0.2.5 (January 20, 2025)
+### Latest Release: v0.3.1 (February 23, 2025)
 PyVisionAI is continuously updated to ensure security and reliability. 
 All versions to date have been certified secure, with no known vulnerabilities reported across any release.
 
@@ -54,6 +57,9 @@ pip install pyvisionai
 
 # Process your first file
 file-extract -t pdf -s path/to/file.pdf -o output_dir
+
+# Describe an image
+describe-image -s path/to/image.jpg
 ```
 
 [Get Started →](documentation/getting-started.md){ .md-button .md-button--primary }

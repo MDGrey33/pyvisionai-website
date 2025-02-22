@@ -97,7 +97,7 @@ pyvisionai process example.pdf
 ---
 
 ### **Project Highlights**
-#### **Latest Release**: v0.2.5 (January 20, 2025)
+#### **Latest Release**: v0.3.1 (February 23, 2025)
 PyVisionAI is continuously updated to ensure security and reliability. All versions to date have been certified secure, with no known vulnerabilities reported across any release. This reflects our commitment to providing a trusted and robust solution for your document processing needs.
 
 #### **Unprecedented Growth**

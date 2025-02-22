@@ -29,20 +29,22 @@ Optional Arguments:
 
 #### `describe-image` Command
 ```bash
-describe-image [-h] -i IMAGE [-m MODEL] [-k API_KEY] [-t MAX_TOKENS] [-v] [-p PROMPT]
+describe-image [-h] -s SOURCE [-m MODEL] [-k API_KEY] [-t MAX_TOKENS] [-v] [-p PROMPT]
 
 Required Arguments:
-  -i, --image IMAGE      Path to image file
+-s, --source SOURCE    Path to image file
 
 Optional Arguments:
-  -h, --help            Show help message and exit
-  -m, --model MODEL     Vision model to use:
-                        - gpt4: GPT-4 Vision (default, recommended)
-                        - llama: Local Llama model
-  -k, --api-key KEY     OpenAI API key (can also be set via OPENAI_API_KEY env var)
-  -t, --max-tokens NUM  Maximum tokens for response (default: 300)
-  -p, --prompt TEXT     Custom prompt for image description
-  -v, --verbose         Enable verbose logging
+-h, --help            Show help message and exit
+-m, --model MODEL     Model to use (gpt4, claude, llama)
+-k, --api-key KEY     API key (if not set in environment)
+-t, --max-tokens N    Maximum tokens for response
+-v, --verbose         Enable verbose output
+-p, --prompt TEXT     Custom prompt for image description
+
+Note: For backward compatibility:
+- You can also use -i/--image instead of -s/--source
+- The -u/--use-case parameter is supported but -m/--model is recommended
 ```
 
 ### Examples
@@ -71,26 +73,26 @@ file-extract -t pdf -s document.pdf -o output_dir -p "Focus on text content and 
 
 #### Image Description Examples
 ```bash
-# Basic usage with defaults (GPT-4 Vision)
-describe-image -i photo.jpg
+# Basic usage
+describe-image -s photo.jpg
 
-# Use local Llama model
-describe-image -i photo.jpg -m llama
+# Using specific model
+describe-image -s photo.jpg -m llama
 
-# Use custom prompt
-describe-image -i photo.jpg -p "List the main colors and their proportions"
+# Custom prompt
+describe-image -s photo.jpg -p "List the main colors and their proportions"
 
-# Customize token limit
-describe-image -i photo.jpg -t 500
+# Set token limit
+describe-image -s photo.jpg -t 500
 
-# Enable verbose logging
-describe-image -i photo.jpg -v
+# Verbose output
+describe-image -s photo.jpg -v
 
-# Use custom OpenAI API key
-describe-image -i photo.jpg -k "your-api-key"
+# Custom API key
+describe-image -s photo.jpg -k "your-api-key"
 
-# Combine options
-describe-image -i photo.jpg -m llama -p "Describe the lighting and shadows" -v
+# Combined options
+describe-image -s photo.jpg -m llama -p "Describe the lighting and shadows" -v
 ```
 
 ## Python Library Usage
@@ -140,7 +142,7 @@ PyVisionAI supports custom prompts for both file extraction and image descriptio
    file-extract -t pdf -s document.pdf -o output_dir -p "Extract all text verbatim and describe any diagrams or images in detail"
 
    # Image description with custom prompt
-   describe-image -i image.jpg -p "List the main colors and describe the layout of elements"
+   describe-image -s photo.jpg -p "List the main colors and describe the layout of elements"
    ```
 
 2. **Library Usage**

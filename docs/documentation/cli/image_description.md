@@ -8,24 +8,25 @@ graph TD
     classDef optional fill:#065f46,stroke:#064e3b,stroke-width:2px,color:#fff
     classDef default fill:#1f2937,stroke:#374151,stroke-width:2px,color:#fff
     classDef example fill:#92400e,stroke:#78350f,stroke-width:2px,color:#fff
+    classDef legacy fill:#6b7280,stroke:#4b5563,stroke-width:2px,color:#fff
 
     CLI(["describe-image"])
 
     subgraph EXAMPLES["✨ EXAMPLES"]
         Basic["Quickstart:
-        describe-image -i photo.jpg"]
+        describe-image -s photo.jpg"]
 
-        Local["Local Model:
-        describe-image -i photo.jpg -u llama"]
+        Model["Model Selection:
+        describe-image -s photo.jpg -m claude"]
     end
 
     subgraph OPTIONAL["🟢 OPTIONAL"]
-        Model["--use-case, -u
+        ModelOpt["--model, -m
         🤖 Model Choice
-        gpt4 | llama"]
+        gpt4 | claude | llama"]
 
         Key["--api-key, -k
-        🔑 OpenAI Key"]
+        🔑 API Key"]
 
         Verbose["--verbose, -v
         📝 Detailed Output"]
@@ -35,27 +36,37 @@ graph TD
     end
 
     subgraph REQUIRED["🔴 REQUIRED"]
-        Image["--image, -i
+        Source["--source, -s
         📸 Image File Path"]
+    end
+
+    subgraph LEGACY["⚠️ LEGACY SUPPORT"]
+        ImageLegacy["--image, -i
+        Same as --source"]
+        
+        UseCaseLegacy["--use-case, -u
+        Same as --model"]
     end
 
     subgraph DEFAULTS["🔵 DEFAULTS"]
         ModelDefault["🤖 gpt4"]
-        KeyDefault["🔑 From ENV (OPENAI_API_KEY)"]
+        KeyDefault["🔑 From ENV"]
         VerboseDefault["📝 Off"]
         PromptDefault["💭 Describe this image in detail"]
     end
 
-    CLI --> Image
-    CLI --> Model & Key & Verbose & Prompt
+    CLI --> Source
+    CLI --> ModelOpt & Key & Verbose & Prompt
+    CLI -.-> ImageLegacy & UseCaseLegacy
 
-    Model --> ModelDefault
+    ModelOpt --> ModelDefault
     Key --> KeyDefault
     Verbose --> VerboseDefault
     Prompt --> PromptDefault
 
-    class Image required
-    class Model,Key,Verbose,Prompt optional
+    class Source required
+    class ModelOpt,Key,Verbose,Prompt optional
     class ModelDefault,KeyDefault,VerboseDefault,PromptDefault default
-    class Basic,Local example
+    class Basic,Model example
+    class ImageLegacy,UseCaseLegacy legacy
 ``` 

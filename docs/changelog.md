@@ -2,6 +2,47 @@
 
 All notable changes to PyVisionAI will be documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.1] - 2025-02-23
+
+### Added
+- Added new `-m/--model` parameter to `describe-image` command for model selection
+- Added new `-s/--source` parameter to `describe-image` command for specifying image path
+- Added comprehensive test coverage for CLI parameters
+
+### Changed
+- Updated CLI parameter handling to support both new and legacy model selection
+- Updated CLI parameter handling to support both new and legacy image path specification
+- Enhanced help messages with clearer model descriptions
+
+### Note
+- The `-u/--use-case` parameter continues to be supported for backward compatibility
+- The `-i/--image` parameter continues to be supported for backward compatibility
+- We recommend using `-m/--model` and `-s/--source` for better consistency across commands
+
+## [0.3.0] - 2024-03-25
+
+### Added
+#### Claude Vision Integration
+- Added `ClaudeVisionModel` class for Anthropic's Claude Vision API integration
+- Implemented robust retry logic and error handling for Claude API calls
+- Added support for custom prompts with Claude Vision
+- Added `describe_image_claude` function to main API
+
+#### Testing Framework
+- Added Claude-specific test markers and comprehensive test suite
+- Added integration tests with real API calls
+- Added rate limit and retry logic tests
+
+#### Documentation
+- Added Claude Vision model documentation
+- Updated API documentation with Claude Vision integration details
+- Added environment setup instructions for Anthropic API key
+
+#### Configuration
+- Added `ANTHROPIC_API_KEY` environment variable support
+- Added Claude Vision model configuration in factory system
+- Added retry strategy configuration for API calls
+
 ## [0.2.7] - 2024-03-22
 
 ### Added
