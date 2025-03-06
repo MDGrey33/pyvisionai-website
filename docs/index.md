@@ -8,7 +8,9 @@
 - 🖼️ Capture interactive HTML pages as images with full rendering.
 - 📝 Describe images using:
   - Cloud-based models (OpenAI GPT-4 Vision, Anthropic Claude Vision)
+    ![GPT-4 Vision Thumbnail](assets/images/GPT-4-Vision-Thumbnail.jpg)
   - Local models (Ollama's Llama Vision)
+    ![Llama Vision](assets/images/llama-vision.png)
 - 💾 Save extracted text and image descriptions in markdown format.
 - 🛠️ Support for both CLI and library usage.
 - 📊 Multiple extraction methods for different use cases.
@@ -75,3 +77,15 @@ This project wouldn't exist without the incredible Python community, especially:
 - [Real Python Podcast](https://realpython.com/podcasts/rpp/) - Weekly Python tips and interviews by Christopher Bailey
 
 These podcasts transformed me from a Python enthusiast to a library author. Thank you for making Python accessible and exciting!
+
+---
+
+![Ready Tensor Logo](assets/images/rt-logo-flat-white.svg)
+
+---
+
+### Further Reading
+
+Explore our detailed publication on Ready Tensor for an in-depth understanding of PyVisionAI's capabilities and applications:
+
+[PyVisionAI: Agentic AI for Intelligent Document Processing and Visual Understanding](https://app.readytensor.ai/publications/pyvisionai-agentic-ai-for-intelligent-document-processing-and-visual-understanding-Iah5tcj36T0l)
